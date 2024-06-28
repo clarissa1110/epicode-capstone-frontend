@@ -10,6 +10,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './auth/login/login/login.component';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Route[] = [
   {
@@ -17,11 +19,11 @@ const routes: Route[] = [
     component: HomeComponent
   },
   {
-    path: 'login',
+    path: 'auth/login',
     component: LoginComponent
   },
   {
-    path: 'register',
+    path: 'auth/register',
     component: RegisterComponent
   }
 ]
@@ -37,7 +39,8 @@ const routes: Route[] = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     {

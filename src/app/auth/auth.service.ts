@@ -20,12 +20,12 @@ export class AuthService {
 
   signUp(data: Register) {
     return this.http
-      .post(`${this.apiURL}register`, data)
+      .post(`${this.apiURL}auth/register`, data)
       .pipe(catchError(this.errors));
   }
 
   login(data: { email: string; password: string }) {
-    return this.http.post<AuthData>(`${this.apiURL}login`, data).pipe(
+    return this.http.post<AuthData>(`${this.apiURL}auth/login`, data).pipe(
       tap((data) => {
         console.log('Auth data: ', data);
       }),
@@ -40,7 +40,7 @@ export class AuthService {
   logout() {
     this.authSub.next(null);
     localStorage.removeItem('user');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   restore() {

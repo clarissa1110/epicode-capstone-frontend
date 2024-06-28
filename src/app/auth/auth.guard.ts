@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
         }
         else {
           alert('Ypu must be logged-in to view this content');
-          return this.router.createUrlTree(['/login']);
+          return this.router.createUrlTree(['/auth/login']);
         }
       })
     )

@@ -12,8 +12,8 @@
                 <div *ngIf="!user" class="d-flex">
                     <a class="nav-link active text-secondary" [routerLink]="['/']" routerLinkActive="active"
                         [routerLinkActiveOptions]="{ exact: true }">Home</a>
-                    <a class="nav-link text-white" [routerLink]="['/login']" routerLinkActive="active">Login</a>
-                    <a class="nav-link text-white" [routerLink]="['/register']" routerLinkActive="active">Register</a>
+                    <a class="nav-link text-white" [routerLink]="['/auth/login']" routerLinkActive="active">Login</a>
+                    <a class="nav-link text-white" [routerLink]="['/auth/register']" routerLinkActive="active">Register</a>
                 </div>
                 <div *ngIf="user" class="d-flex gap-2 flex-column flex-md-row">
                     <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active"

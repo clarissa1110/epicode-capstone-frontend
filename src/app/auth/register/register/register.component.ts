@@ -18,7 +18,7 @@ export class RegisterComponent {
     console.log(form.value);
     try {
       this.authSrv.signUp(form.value).subscribe();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
     } catch(error) {
       console.log(error);
     }    
