@@ -4,7 +4,7 @@ import { Register } from '../models/register.interface';
 import { environment } from 'src/environments/environment.development';
 import { AuthData } from '../models/auth-data.interface';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -24,17 +24,29 @@ export class AuthService {
       .pipe(catchError(this.errors));
   }
 
-  login(data: { email: string; password: string }) {
-    return this.http.post<AuthData>(`${this.apiURL}auth/login`, data).pipe(
-      tap((data) => {
-        console.log('Auth data: ', data);
-      }),
-      tap((data) => {
-        this.authSub.next(data);
-        localStorage.setItem('user', JSON.stringify(data));
-      }),
-      catchError(this.errors)
-    );
+  // login(data: { email: string; password: string }) {
+  //   return this.http.post<AuthData>(`${this.apiURL}auth/login`, data).pipe(
+  //     tap((data) => {
+  //       console.log('Auth data: ', data);
+  //     }),
+  //     tap((data) => {
+  //       this.authSub.next(data);
+  //       localStorage.setItem('user', JSON.stringify(data));
+  //     }),
+  //     catchError(this.errors)
+  //   );
+  // }
+
+  login(data: {email: string; password: string}) {
+    return this.http
+      .post(`${this.apiURL}auth/login`, data)
+      .pipe(
+        map((response: any) => {
+          localStorage.setItem('token', response.token);
+          return response;
+        }),
+        catchError(this.errors)
+      );
   }
 
   logout() {

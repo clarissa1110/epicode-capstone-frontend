@@ -12,6 +12,7 @@ import { LoginComponent } from './auth/login/login/login.component';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Route[] = [
   {
@@ -25,6 +26,11 @@ const routes: Route[] = [
   {
     path: 'auth/register',
     component: RegisterComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    //canActivate: [AuthGuard]
   }
 ]
 @NgModule({
@@ -34,7 +40,8 @@ const routes: Route[] = [
     NavbarComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

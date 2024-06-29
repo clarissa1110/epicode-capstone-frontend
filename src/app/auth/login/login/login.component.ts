@@ -18,8 +18,8 @@ export class LoginComponent {
       this.authSrv.login(form.value).subscribe();
       alert('Login successful');
       setTimeout(() => {
-        this.router.navigate(['/']);
-      }, 600000);
+        this.router.navigate(['/dashboard']);
+      }, 1000);
     }
     catch (error) {
       console.log(error);      
