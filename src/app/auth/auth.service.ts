@@ -24,30 +24,31 @@ export class AuthService {
       .pipe(catchError(this.errors));
   }
 
-  // login(data: { email: string; password: string }) {
-  //   return this.http.post<AuthData>(`${this.apiURL}auth/login`, data).pipe(
-  //     tap((data) => {
-  //       console.log('Auth data: ', data);
-  //     }),
-  //     tap((data) => {
-  //       this.authSub.next(data);
-  //       localStorage.setItem('user', JSON.stringify(data));
-  //     }),
-  //     catchError(this.errors)
-  //   );
-  // }
-
-  login(data: {email: string; password: string}) {
-    return this.http
-      .post(`${this.apiURL}auth/login`, data)
-      .pipe(
-        map((response: any) => {
-          localStorage.setItem('token', response.token);
-          return response;
-        }),
-        catchError(this.errors)
-      );
+  login(data: { email: string; password: string }) {
+    return this.http.post<AuthData>(`${this.apiURL}auth/login`, data).pipe(
+      tap((data) => {
+        console.log('Auth data: ', data);
+      }),
+      tap((data) => {
+        this.authSub.next(data);
+        localStorage.setItem('token', data.token);
+        
+      }),
+      catchError(this.errors)
+    );
   }
+
+  // login(data: {email: string; password: string}) {
+  //   return this.http
+  //     .post(`${this.apiURL}auth/login`, data)
+  //     .pipe(
+  //       map((response: any) => {
+  //         localStorage.setItem('token', response.token);
+  //         return response;
+  //       }),
+  //       catchError(this.errors)
+  //     );
+  // }
 
   logout() {
     this.authSub.next(null);
@@ -80,6 +81,8 @@ export class AuthService {
   }
 
   private errors(err: any) {
+    console.log(err);
+    
     switch (err.error) {
       case 'Email already exists':
         return throwError('User already exists');

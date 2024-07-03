@@ -13,6 +13,10 @@ import { TokenInterceptor } from './auth/token.interceptor';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UpdateUserInfoComponent } from './components/update-user-info/update-user-info.component';
+import { ShelfComponent } from './components/shelf/shelf.component';
+import { BookComponent } from './components/book/book.component';
 
 const routes: Route[] = [
   {
@@ -31,6 +35,14 @@ const routes: Route[] = [
     path: 'dashboard',
     component: DashboardComponent,
     //canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent
+  },
+  {
+    path: 'user_details',
+    component: UpdateUserInfoComponent
   }
 ]
 @NgModule({
@@ -42,6 +54,10 @@ const routes: Route[] = [
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
+    UserProfileComponent,
+    UpdateUserInfoComponent,
+    ShelfComponent,
+    BookComponent,
   ],
   imports: [
     BrowserModule,
