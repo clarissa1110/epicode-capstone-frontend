@@ -18,12 +18,13 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>, 
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    
     return this.authSrv.user$.pipe(
       take(1),
       switchMap(user => {
         if (user) {
           const newReq = request.clone({
-            headers: request.headers.append('Authorization', `Bearer ${user.accessToken}`)
+            headers: request.headers.append('Authorization', `Bearer ${user.token}`)            
           })
           console.log(newReq);
           

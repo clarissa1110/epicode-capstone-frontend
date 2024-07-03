@@ -1,14 +1,6 @@
-export interface Books {
-  items: BookResponse[];
-}
-
 export interface BookResponse {
-  id: string;
+  bookId: string;
   etag: string;
-  volumeInfo: VolumeInfo;
-}
-
-export interface VolumeInfo {
   title: string;
   subtitle?: string;
   authors?: string[];
@@ -16,9 +8,5 @@ export interface VolumeInfo {
   publishedDate?: string;
   description?: string;
   categories?: string[];
-  imageLinks?: ImageLinks;
-}
-
-export interface ImageLinks {
   thumbnail?: string;
 }
