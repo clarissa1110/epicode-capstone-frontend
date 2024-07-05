@@ -6,6 +6,7 @@ import { AuthService } from '../auth/auth.service';
 import { User } from '../models/user.interface';
 import { catchError } from 'rxjs/operators';
 import { Bookshelf } from '../models/bookshelf.interface';
+import { BookResponse } from '../models/books.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -42,11 +43,16 @@ export class UserService {
     return throwError('User not logged in');
   }
 
+  createBookshelf(name: string): Observable<Bookshelf> {
+    const userId = this.authSrv.getCurrentUserId();
+    return this.http.post<Bookshelf>(`${this.apiUrl}users/${userId}/bookshelves`, { name });
+  }
+
   addBookToBookshelf(bookshelfId: number, bookId: number): Observable<any> {
     const userId = this.authSrv.getCurrentUserId();
     if (userId !== null) {
       return this.http.post(
-        `${this.apiUrl}users/${userId}/bookshelf/${bookshelfId}/books/${bookId}`, 
+        `${this.apiUrl}users/${userId}/bookshelves/${bookshelfId}/books/${bookId}`, 
         null, 
         { headers: this.authSrv.getHeaders() }
       ).pipe(
@@ -57,5 +63,15 @@ export class UserService {
       );
     }
     return throwError('User not logged in');
+  }
+
+  getBooksInBookshelf(bookshelfId: number): Observable<Bookshelf> {
+    const userId = this.authSrv.getCurrentUserId();
+    return this.http.get<Bookshelf>(`${this.apiUrl}users/${userId}/bookshelves/${bookshelfId}/books`).pipe(
+      catchError(error => {
+        console.error('Error fetching books in bookshelf', error);
+        return throwError(() => new Error('Error fetching books in bookshelf'));
+      })
+    );
   }
 }
