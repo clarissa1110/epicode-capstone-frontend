@@ -10,25 +10,83 @@ import { Bookshelf } from 'src/app/models/bookshelf.interface';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit{
-  user!: User | null;
+  user!: User;
   bookshelves: Bookshelf[] = [];
+  newBookshelfName: string = '';
   favouriteBooks: BookResponse[] = [];
 
   constructor(private userSrv: UserService) {}
 
   ngOnInit(): void {
+    this.fetchUserProfile();
+    this.fetchUserBookshelves();
+    this.loadFavouriteBooks();
+  }
+
+  fetchUserProfile() {
     this.userSrv.getUserProfile().subscribe(
       (data: User) => {
-      this.user = data;
-      this.bookshelves = data.bookshelves;
+        this.user = data;
+      },
+    (error) => {
+      console.log('Error fetching user profile', error);
+      
+    })
+  }
 
-      const favouritesShelf = this.bookshelves.find(shelf => shelf.name === 'Favourites');
-      this.favouriteBooks = favouritesShelf ? favouritesShelf.bookList : [];
-    },
-  (error) => {
-    console.log("Error fetching user profile", error);
-    
-  })
+  fetchUserBookshelves() {
+    this.userSrv.getBookshelves().subscribe(
+      (data: Bookshelf[]) => {
+        this.bookshelves = data;
+        console.log(this.bookshelves);
+        
+      },
+      (error) => {
+        console.log('Error fetching bookshelves', error);
+        
+      }
+    )
+  }
+
+  loadFavouriteBooks() {
+    const favouriteBookshelf = this.bookshelves.find(bookshelf => bookshelf.name === 'favourite books');
+    if (favouriteBookshelf) {
+      this.userSrv.getBooksInBookshelf(favouriteBookshelf.bookshelfId).subscribe(
+        (books: Bookshelf) => {
+          this.favouriteBooks = books.bookList;
+          console.log(this.favouriteBooks);
+          
+        },
+        (error) => {
+          console.error('Error fetching favorite books', error);
+        }
+      );
+    }
+  }
+
+  createBookshelf() {
+    this.userSrv.createBookshelf(this.newBookshelfName).subscribe(
+      (response: Bookshelf) => {
+        this.bookshelves.push(response);
+        
+      }
+    )
+  }
+
+  openCreateBookshelfModal() {
+    const modal = document.getElementById('createBookshelfModal');
+    if (modal) {
+      modal.style.display = 'block';
+      modal.classList.add('show');
+    }
+  }
+
+  closeCreateBookshelfModal() {
+    const modal = document.getElementById('createBookshelfModal');
+    if (modal) {
+      modal.style.display = 'none';
+      modal.classList.remove('show');
+    }
   }
   
 }
