@@ -1,27 +1,74 @@
-# EpicodeCapstoneFrontend
+# Bookshelf Application - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
+## Overview
+This frontend application allows users to manage their bookshelves and favorite books. Users can perform tasks such as searching for books, adding them to specific bookshelves, creating new bookshelves, and viewing their profile information.
 
-## Development server
+## Features
+- **User Authentication:** Login and signup functionalities.
+- **Book Search:** Utilizes the Google Books API to search for books based on user queries.
+- **Bookshelf Management:** Users can view their bookshelves, add books to existing bookshelves, and create new bookshelves.
+- **User Profile:** Displays user information including name, avatar, and list of bookshelves.
+- **Responsive Design:** Designed with Bootstrap for a mobile-first experience.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Technologies Used
+- Angular
+- TypeScript
+- Bootstrap
 
-## Code scaffolding
+## Getting Started
+### Prerequisites
+- Node.js and npm installed
+- Angular CLI installed
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Installation
+1. Clone the repository:
+   ```
+   git clone https://github.com/clarissa1110/epicode-capstone-frontend
+   ```
+2. Navigate to the project directory:
+    ```
+   cd epicodeCapstoneFrontend
+   ```
 
-## Build
+3. Install dependencies:
+    ```
+    npm install
+    ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Running the Application
 
-## Running unit tests
+1. Start the development server:
+    ```
+    npm run fullstack
+    ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Open your browser and navigate to http://localhost:4200.
 
-## Running end-to-end tests
+## Project Structure
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **src/app**: Contains the main application files.
 
-## Further help
+- **components**: Contains Angular components.
+- **services** : Contains Angular services for handling business logic and HTTP requests.
+- **models**: Contains TypeScript interfaces for data models.
+- **auth**: Contains services and components for handling registration, login and authentication.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Services
+#### AuthService
+Handles user authentication, login, signup, and token management.
+
+#### SearchService
+Handles book search functionality using the Google Books API.
+
+#### UserService
+Manages operations related to the user and their bookshelves, including retrieval, creation, and updating bookshelves and associated books.
+
+### Components
+#### DashboardComponent
+Main interface for users to search for books and manage their bookshelves.
+
+#### UserProfileComponent
+Displays user profile information, including bookshelves and favorite books. Allows users to create new bookshelves and view books within them.
+
+## API Endpoints
+This application communicates with a backend API. For backend implementation details, visit the [Backend Repository](https://github.com/clarissa1110/Epicode-capstone).
