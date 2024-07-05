@@ -1,5 +1,5 @@
 export interface BookResponse {
-  bookId: string;
+  bookId: number;
   etag: string;
   title: string;
   subtitle?: string;

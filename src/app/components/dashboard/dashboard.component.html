@@ -1,39 +1,38 @@
 <div class="container mt-5">
-  <div class="row">
+    <div class="row">
       <div class="col-md-8 offset-md-2">
-          <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Search for books" [(ngModel)]="searchQuery">
-              <div class="input-group-append">
-                  <button class="btn btn-primary" type="button" (click)="onSearch()">Search</button>
-              </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search for books" [(ngModel)]="searchQuery">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button" (click)="onSearch()">Search</button>
           </div>
+        </div>
       </div>
-  </div>
-  <div class="row" *ngFor="let book of books">
-      <div class="col-md-8 offset-md-2" *ngIf="book">
-          <div class="card mb-3">
-              <div class="row no-gutters">
-                  <div class="col-md-4">
-                      <img *ngIf="book.thumbnail" [src]="book.thumbnail" class="card-img" alt="{{ book.title }}">
-                  </div>
-                  <div class="col-md-8">
-                      <div class="card-body">
-                          <h5 class="card-title">{{ book.title }}</h5>
-                          <h6 *ngIf="book.subtitle" class="card-subtitle mb-2 text-muted">{{ book.subtitle }}</h6>
-                          <p class="card-text">{{ book.description }}</p>
-                          <p class="card-text">
-                              <small class="text-muted">{{ book.authors?.join(', ') }}</small>
-                          </p>
-                          <p class="card-text">
-                              <small class="text-muted">{{ book.publisher }}</small>
-                          </p>
-                          <p class="card-text">
-                              <small class="text-muted">{{ book.publishedDate }}</small>
-                          </p>
-                      </div>
-                  </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="mb-3">
+          <label for="bookshelfSelect">Select Bookshelf:</label>
+          <select id="bookshelfSelect" class="form-control" [(ngModel)]="selectedBookshelfId">
+            <option *ngFor="let bookshelf of bookshelves" [value]="bookshelf.bookshelfId">{{ bookshelf.name }}</option>
+          </select>
+        </div>
+        <div *ngFor="let book of books" class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img [src]="book.thumbnail" class="card-img" alt="Book cover">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text">{{ book.description }}</p>
+                <p class="card-text"><small class="text-muted">{{ book.authors?.join(', ') }}</small></p>
+                <button class="btn btn-success" (click)="addToBookshelf(book.bookId)">Add to Bookshelf</button>
               </div>
+            </div>
           </div>
+        </div>
       </div>
+    </div>
   </div>
-</div>
+  
