@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Register } from '../models/register.interface';
 import { environment } from 'src/environments/environment.development';
 import { AuthData } from '../models/auth-data.interface';
-import { BehaviorSubject, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Bookshelf } from '../models/bookshelf.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,7 @@ export class AuthService {
       }),
       tap((data) => {
         this.authSub.next(data);
+        localStorage.setItem('user', JSON.stringify(data));
         localStorage.setItem('token', data.token);
         
       }),
@@ -38,21 +40,10 @@ export class AuthService {
     );
   }
 
-  // login(data: {email: string; password: string}) {
-  //   return this.http
-  //     .post(`${this.apiURL}auth/login`, data)
-  //     .pipe(
-  //       map((response: any) => {
-  //         localStorage.setItem('token', response.token);
-  //         return response;
-  //       }),
-  //       catchError(this.errors)
-  //     );
-  // }
-
   logout() {
     this.authSub.next(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     this.router.navigate(['/auth/login']);
   }
 
@@ -72,12 +63,38 @@ export class AuthService {
     console.log('User JSON from localStorage: ', userJson);
     
     if (userJson) {
-      const user = JSON.parse(userJson);
-      console.log('User ID from parsed JSON: ', user.user.id);
-      return user.user.id;
+      const parsedJson = JSON.parse(userJson);
+      
+      console.log('User ID from parsed JSON: ', parsedJson.user.userId);
+      return parsedJson.user.userId;
     }
     
     return null;
+  }
+
+  getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      //'Authorization': `Bearer ${token}`
+    });
+  }
+
+  getUserBookshelves(): Observable<Bookshelf[]> {
+    const userId = this.getCurrentUserId();
+    if (!userId) {
+      return throwError('User ID not found');
+    }
+    return this.http.get<Bookshelf[]>(`${this.apiURL}users/${userId}/bookshelves`, {
+      headers: this.getHeaders(),
+    }).pipe(
+      catchError((error) => {
+        console.error('Error fetching bookshelves', error);
+        return throwError(error);
+      })
+    );
   }
 
   private errors(err: any) {

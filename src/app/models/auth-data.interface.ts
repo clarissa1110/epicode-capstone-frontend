@@ -1,9 +1,7 @@
+import { User } from "./user.interface";
+
 export interface AuthData {
-    user: {
-        name: string,
-        id?: string,
-        email: string,
-    },
+    user: User,
     message: string,
     token: string
 }
