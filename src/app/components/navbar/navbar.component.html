@@ -1,0 +1,184 @@
+<!-- 
+<nav class="navbar navbar-expand-lg d-flex sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand"><img src="https://post.app/wp-content/uploads/2020/03/POST-APP.png" class="rounded-2"
+                style="width: 70px;"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <div *ngIf="!user" class="d-flex">
+                    <a class="nav-link active text-secondary" [routerLink]="['/']" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">Home</a>
+                    <a class="nav-link text-white" [routerLink]="['/auth/login']" routerLinkActive="active">Login</a>
+                    <a class="nav-link text-white" [routerLink]="['/auth/register']" routerLinkActive="active">Register</a>
+                </div>
+                <div *ngIf="user" class="d-flex gap-2 flex-column flex-md-row">
+                    <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active"
+                        *ngIf="user">Dashboard</a>
+                    <a class="nav-link" [routerLink]="['/profile']" routerLinkActive="active"
+                        *ngIf="user">Your Page</a>
+                    <a class="nav-link btn btn-danger logout-btn" *ngIf="user" (click)="logout()" ></a>
+                </div>
+            </div>
+            <button type="button" class="btn btn-danger logout-btn" *ngIf="user" (click)="logout()">
+                Logout
+            </button>
+        </div>
+    </div>
+</nav> -->
+
+<!-- <nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse d-flex justify-content-between"
+      id="navbarNavAltMarkup"
+    >
+      <div class="navbar-nav">
+        <div *ngIf="!user" class="d-flex">
+          <a
+            class="nav-link active text-secondary"
+            [routerLink]="['/']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+          <a
+            class="nav-link text-white"
+            [routerLink]="['/auth/login']"
+            routerLinkActive="active"
+            >Login</a
+          >
+          <a
+            class="nav-link text-white"
+            [routerLink]="['/auth/register']"
+            routerLinkActive="active"
+            >Register</a
+          >
+        </div>
+        <div *ngIf="user" class="d-flex gap-2 flex-column flex-md-row">
+          <a
+            class="nav-link"
+            [routerLink]="['/dashboard']"
+            routerLinkActive="active"
+            *ngIf="user"
+            >Dashboard</a
+          >
+          <a
+            class="nav-link"
+            [routerLink]="['/profile']"
+            routerLinkActive="active"
+            *ngIf="user"
+            >Your Page</a
+          >
+          <a class="nav-link" *ngIf="user" (click)="logout()"></a>
+        </div>
+      </div>
+      <button type="button" class="btn btn-danger logout-btn" *ngIf="user" (click)="logout()">
+            Logout
+        </button>
+    </div>
+  </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav" *ngIf="!user">
+        <li class="nav-item">
+          <a
+            class="nav-link active text-secondary"
+            [routerLink]="['/']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            [routerLink]="['/auth/login']"
+            routerLinkActive="active"
+            >Login</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            [routerLink]="['/auth/register']"
+            routerLinkActive="active"
+            >Register</a
+          >
+        </li>
+      </ul>
+      <ul class="navbar-nav" *ngIf="user">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/dashboard']"
+            routerLinkActive="active"
+            *ngIf="user"
+            >Dashboard</a
+          >
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Dropdown link
+          </a>
+          <ul class="dropdown-menu">
+            <li><a
+                class="nav-link"
+                [routerLink]="['/profile']"
+                routerLinkActive="active"
+                *ngIf="user"
+                >Your Page</a
+              ></li>
+            <li><a
+                class="nav-link"
+                [routerLink]="['/user_details']"
+                routerLinkActive="active"
+                *ngIf="user"
+                >Your Info</a
+              ></li>
+            <li><button type="button" class="btn btn-danger logout-btn" *ngIf="user" (click)="logout()">
+                Logout
+            </button></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+

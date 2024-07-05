@@ -1,0 +1,63 @@
+<div class="container mt-5">
+  <!-- User Profile Section -->
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <img src="{{user.avatarUrl}}" alt="User Avatar" class="rounded-circle img-fluid mb-3">
+      <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+    </div>
+  </div>
+
+  <!-- Bookshelves Section -->
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <button type="button" class="btn btn-success mb-3" (click)="openCreateBookshelfModal()">Create New Bookshelf</button>
+
+    <div *ngFor="let bookshelf of bookshelves" class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ bookshelf.name }}</h5>
+        <!-- Display favorite books here -->
+        <div *ngIf="bookshelf.name === 'favourite books'">
+          <div *ngFor="let book of bookshelves[0].bookList" class="card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img [src]="book.thumbnail" class="card-img" alt="Book cover">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{ book.title }}</h5>
+                  <p class="card-text">{{ book.description }}</p>
+                  <p class="card-text"><small class="text-muted">{{ book.authors?.join(', ') }}</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Create Bookshelf Modal -->
+  <div class="modal fade" id="createBookshelfModal" tabindex="-1" role="dialog" aria-labelledby="createBookshelfModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createBookshelfModalLabel">Create New Bookshelf</h5>
+          <button type="button" class="close" (click)="closeCreateBookshelfModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="createBookshelf()">
+            <div class="form-group">
+              <label for="bookshelfName">Bookshelf Name</label>
+              <input type="text" class="form-control" id="bookshelfName" [(ngModel)]="newBookshelfName" name="bookshelfName" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Bookshelf</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
