@@ -64,6 +64,24 @@ export class UserProfileComponent implements OnInit{
     }
   }
 
+  removeBookFromBookshelf(bookId: number) {
+    const favouriteBookshelf = this.bookshelves.find(bookshelf => bookshelf.name === 'favourite books');
+    if (favouriteBookshelf) {
+      this.userSrv.removeFromBookshelf(favouriteBookshelf.bookshelfId, bookId).subscribe(
+        () => {
+          this.favouriteBooks = this.favouriteBooks.filter(book => book.bookId !== bookId);
+          console.log('Book removed successfully!');     
+          alert('Book removed successfully!');
+          this.fetchUserBookshelves();    
+        },
+        (error) => {
+          console.log('Error removing book from bookshelf', error);
+          
+        }
+      )
+    }
+  }
+
   createBookshelf() {
     this.userSrv.createBookshelf(this.newBookshelfName).subscribe(
       (response: Bookshelf) => {
