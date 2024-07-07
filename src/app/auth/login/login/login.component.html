@@ -1,7 +1,7 @@
 <div class="container text-center p-5">
-    <div class="container">
-        <div class="card bg-white p-5 rounded-5">
-            <h1>LOGIN</h1>
+    <div class="container p-5" id="outside">
+        <div class="p-5 border border-2 border-warning" id="borderInside">
+            <h1 class="text-warning">LOGIN</h1>
             <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
                 <div class="form-group">
                     <input
@@ -10,7 +10,7 @@
                         name="email"
                         id="email"
                         required
-                        class="form-control-plaintext border-bottom mb-4"
+                        class="form-control-plaintext border-bottom mb-4 text-warning"
                         ngModel
                     />
 
@@ -20,18 +20,18 @@
                         name="password"
                         id="password"
                         required
-                        class="form-control-plaintext border-bottom"
+                        class="form-control-plaintext border-bottom text-warning"
                         ngModel
                     />
                 </div>
-                <p class="mt-4">
+                <p class="mt-5 text-warning fs-4">
                     Don't have an account yet?
-                    <a [routerLink]="['/auth/register']">Register</a>
+                    <a [routerLink]="['/auth/register']" class="link">Register</a>
                 </p>
                 <button
                     type="submit"
                     [disabled]="loginForm.invalid"
-                    class="btn btn-primary mt-3"
+                    class="btn btn-link mt-5 fs-3 fw-bold"
                 >
                     LOGIN
                 </button>
