@@ -52,7 +52,8 @@ export class DashboardComponent implements OnInit{
     if (this.selectedBookshelfId) {
       this.userSrv.addBookToBookshelf(this.selectedBookshelfId, bookId).subscribe(
         (response) => {
-          console.log("Book with id: " + bookId + "added to bookshelf with id: " + this.selectedBookshelfId, response);          
+          console.log("Book with id: " + bookId + "added to bookshelf with id: " + this.selectedBookshelfId, response);    
+          alert('Book successfully added to your favourites!');      
         },
         (error) => {
           console.log("Error adding book to bookshelf", error);          
