@@ -25,11 +25,14 @@
 
       <div *ngFor="let bookshelf of bookshelves">
         <h5 class="card-title fs-4 mb-3 mt-3">{{ bookshelf.name }}</h5>
-        <div class="card mb-3 rounded-0 border-2 listBorder">
+        <div class="card mb-3 rounded-0 border-2 border-success">
           <div class="card-body">
             <!-- Display favorite books here -->
             <div *ngIf="bookshelf.name === 'favourite books'">
-              <div *ngFor="let book of bookshelves[0].bookList" class="card mb-3 border rounded-0">
+              <div
+                *ngFor="let book of bookshelves[0].bookList"
+                class="card mb-3 border rounded-0"
+              >
                 <div class="row no-gutters flex-column flex-sm-row">
                   <div class="col-sm-4">
                     <img [src]="book.thumbnail" alt="Book cover" />
@@ -37,15 +40,19 @@
                   <div class="col-sm-8">
                     <div class="card-body">
                       <h5 class="card-title">{{ book.title }}</h5>
-                      <h6 class="card-subtitle mb-2 text-muted">{{ book.subtitle }}</h6>
+                      <h6 class="card-subtitle mb-2 text-muted">
+                        {{ book.subtitle }}
+                      </h6>
                       <p class="card-text">
-                        <small class="text-muted">{{ book.authors?.join(", ") }}</small>
+                        <small class="text-muted">{{
+                          book.authors?.join(", ")
+                        }}</small>
                       </p>
                       <p class="card-text">
                         <small class="text-muted">{{ book.publisher }}</small>
                       </p>
                       <button
-                        class="btn btn-danger"
+                        class="btn btn-danger rounded-0"
                         (click)="removeBookFromBookshelf(book.bookId)"
                       >
                         X
@@ -56,8 +63,6 @@
               </div>
             </div>
           </div>
-          
-          
         </div>
       </div>
     </div>
@@ -65,47 +70,49 @@
 
   <!-- Create Bookshelf Modal -->
   <div
-    class="modal fade"
-    id="createBookshelfModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="createBookshelfModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createBookshelfModalLabel">
-            Create New Bookshelf
-          </h5>
-          <button
-            type="button"
-            class="close"
-            (click)="closeCreateBookshelfModal()"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
+  class="modal fade"
+  id="createBookshelfModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="createBookshelfModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog rounded-0" role="document">
+    <div class="modal-content rounded-0 border-2 border-success" style="background-color: rgb(250, 243, 233);">
+      <div class="modal-header rounded-0">
+        <h5 class="modal-title fs-3" id="createBookshelfModalLabel">
+          Create New Bookshelf
+        </h5>
+        <button
+          type="button"
+          class="btn btn-danger rounded-0"
+          (click)="closeCreateBookshelfModal()"
+          aria-label="Close"
+          style="margin-left: auto;"
+        >
+          <span aria-hidden="true"> X </span>
+        </button>
+      </div>
+      <div class="modal-body rounded-0">
+        <form (ngSubmit)="createBookshelf()">
+          <div class="form-group">
+            <label for="bookshelfName" class="fs-3 mb-2">Bookshelf Name</label>
+            <input
+              type="text"
+              class="form-control rounded-0 mb-2 fs-4"
+              id="bookshelfName"
+              [(ngModel)]="newBookshelfName"
+              name="bookshelfName"
+              required
+            />
+          </div>
+          <button type="submit" class="btn-link mb-3 border border-success py-2 px-3 mt-3 bg-success-subtle fs-6 float-end">
+            Create Bookshelf
           </button>
-        </div>
-        <div class="modal-body">
-          <form (ngSubmit)="createBookshelf()">
-            <div class="form-group">
-              <label for="bookshelfName">Bookshelf Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="bookshelfName"
-                [(ngModel)]="newBookshelfName"
-                name="bookshelfName"
-                required
-              />
-            </div>
-            <button type="submit" class="btn btn-primary">
-              Create Bookshelf
-            </button>
-          </form>
-        </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
+
 </div>

@@ -2,36 +2,41 @@
     <div class="row">
       <div class="col-md-8 offset-md-2">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Search for books" [(ngModel)]="searchQuery">
+          <input type="text" class="form-control rounded-0" placeholder="Search for books" [(ngModel)]="searchQuery">
           <div class="input-group-append">
-            <button class="btn btn-primary" type="button" (click)="onSearch()">Search</button>
+            <button class="btn rounded-0 searchButton" type="button" (click)="onSearch()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-8 offset-md-2">
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="bookshelfSelect">Select Bookshelf:</label>
           <select id="bookshelfSelect" class="form-control" [(ngModel)]="selectedBookshelfId">
             <option *ngFor="let bookshelf of bookshelves" [value]="bookshelf.bookshelfId">{{ bookshelf.name }}</option>
           </select>
-        </div>
-        <div *ngFor="let book of books" class="card mb-3">
-          <div class="row no-gutters">
-            <div class="col-md-4">
-              <img [src]="book.thumbnail" class="card-img" alt="Book cover">
+        </div> -->
+        <div *ngFor="let book of books" class="card mb-3 rounded-0 border-2 border-success">
+          <div class="row no-gutters flex-column flex-sm-row">
+            <div class="col-sm-4">
+              <img [src]="book.thumbnail" class="card-img m-2 rounded-0" alt="Book cover">
             </div>
-            <div class="col-md-8">
+            <div class="col-sm-8">
               <div class="card-body">
                 <h5 class="card-title">{{ book.title }}</h5>
                 <p class="card-text">{{ book.description }}</p>
                 <p class="card-text"><small class="text-muted">{{ book.authors?.join(', ') }}</small></p>
-                <button class="btn btn-success" (click)="addToBookshelf(book.bookId)">Add to Bookshelf</button>
+                <button class="btn addBtn ml-auto" (click)="addToBookshelf(book.bookId)">Add to Bookshelf</button>
               </div>
             </div>
           </div>
-        </div>
+        </div>        
+
       </div>
     </div>
   </div>

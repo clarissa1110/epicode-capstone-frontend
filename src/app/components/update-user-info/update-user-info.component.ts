@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/models/user.interface'; 
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class UpdateUserInfoComponent implements OnInit {
     bookshelves: []
   }
 
-  constructor(private userSrv: UserService, private authSrv: AuthService) {}
+  constructor(private userSrv: UserService, private authSrv: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.userSrv.getUserProfile().subscribe(
@@ -43,6 +44,7 @@ export class UpdateUserInfoComponent implements OnInit {
         (updatedUser: User) => {
           console.log('User updated successfully', updatedUser);
           alert('User info updated successfully!');
+          this.router.navigate(['/profile']);
         },
         (error) => {
           console.log('Error updating user', error);
