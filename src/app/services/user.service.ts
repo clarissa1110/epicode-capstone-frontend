@@ -30,6 +30,15 @@ export class UserService {
     return throwError('User not logged in');
   }
 
+  updateUserProfile(userId: number, userData: Partial<User>): Observable<User> {
+    return this.http.patch<User>(`${this.apiUrl}users/${userId}`, userData).pipe(
+      catchError(error => {
+        console.log('Error updating user data', error);
+        return throwError(error);      
+      })
+    )
+  }
+
   getBookshelves(): Observable<Bookshelf[]> {
     const userId = this.authSrv.getCurrentUserId();
     if (userId !== null) {
@@ -65,6 +74,7 @@ export class UserService {
     return throwError('User not logged in');
   }
 
+
   getBooksInBookshelf(bookshelfId: number): Observable<Bookshelf> {
     const userId = this.authSrv.getCurrentUserId();
     return this.http.get<Bookshelf>(`${this.apiUrl}users/${userId}/bookshelves/${bookshelfId}/books`).pipe(
@@ -73,5 +83,15 @@ export class UserService {
         return throwError(() => new Error('Error fetching books in bookshelf'));
       })
     );
+  }
+
+  removeFromBookshelf(bookshelfId: number, bookId: number): Observable<void> {
+    const userId = this.authSrv.getCurrentUserId();
+    return this.http.delete<void>(`${this.apiUrl}users/${userId}/bookshelves/${bookshelfId}/books/${bookId}`).pipe(
+      catchError(error => {
+        console.log('Error removing book with id: ' + bookId + 'from bookshelf', error);
+        return throwError(error);        
+      })
+    )
   }
 }
